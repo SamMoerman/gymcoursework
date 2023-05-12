@@ -29,7 +29,7 @@
     (WrktID INT(6) NOT NULL,
     UserID INT(6) NOT NULL,
     Datev DATE NOT NULL,
-    PRIMARY KEY(WrktID,UserID))");
+    PRIMARY KEY(WrktID,UserID,Datev))");
     $stmt2->execute();
     $stmt2->closeCursor(); 
 
@@ -37,7 +37,7 @@
     $stmt1 = $conn->prepare("DROP TABLE IF EXISTS WrktTbl;
     CREATE TABLE WrktTbl
     (WrktID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    WorkoutName VARCHAR(30) NOT NULL)");
+    WrktName VARCHAR(30) NOT NULL)");
     $stmt1->execute();
     $stmt1->closeCursor(); 
 
@@ -64,17 +64,78 @@
     UserID INT(6) NOT NULL,
     ExerciseID INT(6) NOT NULL,
     Datev DATE NOT NULL,
-    Weight DECIMAL(4,1) NOT NULL,
+    Weightv DECIMAL(4,1) NOT NULL,
     Reps INT(2) NOT NULL)");
     $stmt1->execute();
     $stmt1->closeCursor();
     
-    //creates the classes table
-    $stmt1 = $conn->prepare("DROP TABLE IF EXISTS ClassesTbl;
-    CREATE TABLE ClassesTbl
-    (ClassID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    UserID INT(6) NOT NULL,
-    InstructorID INT(6) NOT NULL)");
+    //sets up default users test data
+    $hashed_password = password_hash("password", PASSWORD_DEFAULT);
+    $stmt1 = $conn->prepare("INSERT INTO UserTbl(UserID,Forename,Surname,emailaddress,Password,Role)VALUES 
+    (NULL,'Sam','Moerman','sm@google.com',:hp,1),
+    (NULL,'Joe','Ren','jr@google.com',:hp,1),
+    (NULL,'William','Ma','wm@google.com',:hp,0),
+    (NULL,'Egor','Drygin','ed@google.com',:hp,0),
+    (NULL,'George','Gurney','gg@google.com',:hp,0)
+    ");
+    $stmt1->bindParam(':hp', $hashed_password);
     $stmt1->execute();
     $stmt1->closeCursor(); 
+
+    //sets up pupil does workout table test data
+    $stmt1 = $conn->prepare("INSERT INTO PplWrktTbl(UserID,WrktID,Datev)VALUES
+    (1,1,now()),
+    (1,2,now()),
+    (2,1,now()),
+    (2,2,now()),
+    (1,1,'2000-01-01'),
+    (1,1,'2001-01-01')"); 
+    $stmt1->execute();
+    $stmt1->closeCursor();
+
+    //sets up workout table test data
+    $stmt1 = $conn->prepare("INSERT INTO WrktTbl(WrktID,WrktName)VALUES
+    (1,'legs'),
+    (2,'chest'),
+    (3,'back')");
+    $stmt1->execute();
+    $stmt1->closeCursor();
+
+    //sets up workout has exercise table test data
+    $stmt1 = $conn->prepare("INSERT INTO WrktExerciseTbl(WrktID,ExerciseID)VALUES
+    (1,1),
+    (2,1),
+    (1,2),
+    (2,3),
+    (3,4),
+    (3,5),
+    (3,6),
+    (3,7),
+    (3,8)");
+    $stmt1->execute();
+    $stmt1->closeCursor();
+
+    //sets up exercise table test data
+    $stmt1 = $conn->prepare("INSERT INTO ExerciseTbl(ExerciseID,ExerciseName)VALUES
+    (1,'leg extension'),
+    (2,'bench press'),
+    (3,'incline db press'),
+    (4,'lat pulldown'),
+    (5,'cable rows'),
+    (6,'incline db curls'),
+    (7,'cable curls'),
+    (8,'rear delt flies')");
+    $stmt1->execute();
+    $stmt1->closeCursor();
+
+    //sets up the pupil does exercise table test data
+    $stmt1 = $conn->prepare("INSERT INTO PupilExerciseTbl(PDEID,UserID,ExerciseID,Datev,Weightv,Reps)VALUES
+    (NULL,1,1,now(),30,12),
+    (NULL,1,1,'2001-01-01',35,12),
+    (NULL,1,2,now(),25,8),
+    (NULL,2,1,now(),5,3),
+    (NULL,2,2,now(),15,30)");
+    $stmt1->execute();
+    $stmt1->closeCursor();
+
     ?>
