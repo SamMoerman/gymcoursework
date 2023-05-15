@@ -53,7 +53,8 @@
     $stmt1 = $conn->prepare("DROP TABLE IF EXISTS ExerciseTbl;
     CREATE TABLE ExerciseTbl
     (ExerciseID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    ExerciseName VARCHAR(30) NOT NULL)");
+    ExerciseName VARCHAR(30) NOT NULL,
+    ExerciseImage VARCHAR(255) NOT NULL)");
     $stmt1->execute();
     $stmt1->closeCursor(); 
 
@@ -117,12 +118,12 @@
 
     //sets up exercise table test data
     $stmt1 = $conn->prepare("INSERT INTO ExerciseTbl(ExerciseID,ExerciseName)VALUES
-    (1,'leg extension'),
-    (2,'bench press'),
-    (3,'incline db press'),
-    (4,'lat pulldown'),
-    (5,'cable rows'),
-    (6,'incline db curls'),
+    (1,'leg extension','legextension.jfif'),
+    (2,'bench press','benchpress.png'),
+    (3,'incline db press','incdbpress.png'),
+    (4,'lat pulldown','latpulldown.png'),
+    (5,'cable rows','cablerow.png'),
+    (6,'incline db curls','incdbcurl'),
     (7,'cable curls'),
     (8,'rear delt flies')");
     $stmt1->execute();
