@@ -54,7 +54,8 @@
     CREATE TABLE ExerciseTbl
     (ExerciseID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     ExerciseName VARCHAR(30) NOT NULL,
-    ExerciseImage VARCHAR(255) NOT NULL)");
+    ExerciseImage VARCHAR(255) NOT NULL,
+    ExerciseTarget VARCHAR(30) NOT NULL)");
     $stmt1->execute();
     $stmt1->closeCursor(); 
 
@@ -104,28 +105,28 @@
 
     //sets up workout has exercise table test data
     $stmt1 = $conn->prepare("INSERT INTO WrktExerciseTbl(WrktID,ExerciseID)VALUES
+    (1,6),
+    (2,6),
     (1,1),
-    (2,1),
-    (1,2),
-    (2,3),
-    (3,4),
+    (2,4),
     (3,5),
-    (3,6),
-    (3,7),
-    (3,8)");
+    (3,8),
+    (3,3),
+    (3,2),
+    (3,7)");
     $stmt1->execute();
     $stmt1->closeCursor();
 
     //sets up exercise table test data
-    $stmt1 = $conn->prepare("INSERT INTO ExerciseTbl(ExerciseID,ExerciseName)VALUES
-    (1,'leg extension','legextension.jfif'),
-    (2,'bench press','benchpress.png'),
-    (3,'incline db press','incdbpress.png'),
-    (4,'lat pulldown','latpulldown.png'),
-    (5,'cable rows','cablerow.png'),
-    (6,'incline db curls','incdbcurl'),
-    (7,'cable curls'),
-    (8,'rear delt flies')");
+    $stmt1 = $conn->prepare("INSERT INTO ExerciseTbl(ExerciseID,ExerciseName,ExerciseImage,ExerciseTarget)VALUES
+    (1,'bench press (barbell)','benchpress.png','chest'),
+    (2,'bicep curls (cable)','cablecurl.png','arms'),
+    (3,'incline curls (dumbell)','incdbcurl.png','arms'),
+    (4,'incline press (dumbell)','incdbpress.png','chest'),
+    (5,'lat pulldown','latpulldown.png','back'),
+    (6,'leg extension','legextension.jfif','legs'),
+    (7,'rear delt flies (cable)','cablereardeltflies.png','shoulders'),
+    (8,'rows (cable)','cablerow.png','back')");
     $stmt1->execute();
     $stmt1->closeCursor();
 

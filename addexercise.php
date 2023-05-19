@@ -1,10 +1,10 @@
 <?php
-session_start(); 
+/* session_start(); 
 if (!isset($_SESSION['loggedinuser']))
 {   
     $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
     header("Location:login.php");
-}
+} */
 
 if (!isset($_SESSION["exercise"])){
     $_SESSION["exercise"]=array();
@@ -22,5 +22,5 @@ if ($found===FALSE){
 }
 
 print_r($_SESSION);
-header('Location: createworkout.php')
+//header('Location: createworkout.php')
 ?>
