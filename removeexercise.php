@@ -18,7 +18,7 @@ foreach ($_SESSION["exercise"] as &$entry){
 
 }
 if ($found===FALSE){
-    array_push($_SESSION["exercise"],$_POST["ExerciseID"]); //add the exercise id to the session exercise array
+    array_splice($_SESSION["exercise"],$_POST["ExerciseID"]); //add the exercise id to the session exercise array
 }
 
 print_r($_SESSION);

@@ -140,4 +140,9 @@
     $stmt1->execute();
     $stmt1->closeCursor();
 
+    session_start();
+    session_unset();
+    session_destroy();
+    session_write_close();
+    setcookie(session_name(),'',0,'/');
     ?>
