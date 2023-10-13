@@ -23,6 +23,21 @@ if (!isset($_SESSION['loggedinuser']))
 
 <?php
 
+
+
+//FOR TESTING ONLY
+
+
+
+$_SESSION['loggedinuser']=1;
+
+
+
+///////////////////////////
+
+
+
+
 print_r($_SESSION);
 include_once('connection.php');
 if (isset($_SESSION['exercise'])){
@@ -36,12 +51,30 @@ if (isset($_SESSION['exercise'])){
         { 
             echo "<hr />";
             echo ($row["ExerciseName"]);
+
+            foreach ($_SESSION["exercise"] as &$entry){
+                $stmt1 = $conn->prepare("SELECT * FROM pupilexercisetbl WHERE ExerciseID = :exercise AND UserID = :user ;" );  // selects the user who is trying to log in from the database
+                $stmt1->bindParam(':user', $_SESSION['loggedinuser']);
+                $stmt1->bindParam(':exercise', $entry);
+                $stmt1->execute();
+                while ($row = $stmt1->fetch(PDO::FETCH_ASSOC))
+                {
+                    echo ($row["Reps"]);
+                    //echo'<form action="addreps.php" method="post">';
+                    echo("<input type='submit' value='+'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."></form>"); 
+                    //echo'<form action="removereps.php" method="post">';
+                    echo("<input type='submit' value='-'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."><br></form>"); 
+                }
+                $stmt1->closeCursor();
+            }
         }
-        $stmt->closeCursor();
+        }
     }
-}
+    
 $stmt = $conn->prepare("SELECT * FROM exercisetbl");
 $stmt->execute();
+$stmt1 = $conn->prepare("SELECT * FROM pupilexercisetbl");
+$stmt1->execute();
 
 
 if (!isset($_SESSION["exercise"])){
