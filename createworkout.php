@@ -25,7 +25,7 @@ if (!isset($_SESSION['loggedinuser']))
 
 
 
-//FOR TESTING ONLY
+/////FOR TESTING ONLY///////
 
 
 
@@ -36,7 +36,7 @@ $_SESSION['loggedinuser']=1;
 ///////////////////////////
 
 
-
+echo 'Name: <input type="text" name="name" value="WORKOUT NAME"><br>';
 
 print_r($_SESSION);
 include_once('connection.php');
@@ -44,38 +44,21 @@ if (isset($_SESSION['exercise'])){
     echo "there is ".count($_SESSION["exercise"])." exercises in your workout";
     //run query to pick up name of exercise from id
     foreach ($_SESSION["exercise"] as &$entry){
-        $stmt = $conn->prepare("SELECT * FROM exercisetbl WHERE ExerciseID =:exercise ;" );  // selects the user who is trying to log in from the database
+        $stmt = $conn->prepare("SELECT * FROM exercisetbl WHERE ExerciseID =:exercise ;" );  // selects the exercise names that correspond with the exerciseID s in the workout
         $stmt->bindParam(':exercise', $entry);
         $stmt->execute();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))  //prints out each of the exercise names that are currently in the workout
         { 
             echo "<hr />";
             echo ($row["ExerciseName"]);
-
-            foreach ($_SESSION["exercise"] as &$entry){
-                $stmt1 = $conn->prepare("SELECT * FROM pupilexercisetbl WHERE ExerciseID = :exercise AND UserID = :user ;" );  // selects the user who is trying to log in from the database
-                $stmt1->bindParam(':user', $_SESSION['loggedinuser']);
-                $stmt1->bindParam(':exercise', $entry);
-                $stmt1->execute();
-                while ($row = $stmt1->fetch(PDO::FETCH_ASSOC))
-                {
-                    echo ($row["Reps"]);
-                    //echo'<form action="addreps.php" method="post">';
-                    echo("<input type='submit' value='+'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."></form>"); 
-                    //echo'<form action="removereps.php" method="post">';
-                    echo("<input type='submit' value='-'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."><br></form>"); 
-                }
-                $stmt1->closeCursor();
-            }
-        }
         }
     }
-    
+}
+
 $stmt = $conn->prepare("SELECT * FROM exercisetbl");
 $stmt->execute();
 $stmt1 = $conn->prepare("SELECT * FROM pupilexercisetbl");
 $stmt1->execute();
-
 
 if (!isset($_SESSION["exercise"])){
     $_SESSION["exercise"]=array();
@@ -96,6 +79,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
         echo("<input type='submit' value='Remove Exercise'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."<br></form>");
     }
 }
+echo'<form action="makeworkout.php" method="post">';
+echo("<input type='submit' value='FINISH'><input type='hidden' name='workoutID' value=".$row['ExerciseID']."<br></form>");
 ?>
 </form>
 </body>
