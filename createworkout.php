@@ -35,9 +35,9 @@ $_SESSION['loggedinuser']=1;
 
 ///////////////////////////
 
-
-echo 'Name: <input type="text" name="name" value="WORKOUT NAME"><br>';
-
+echo'<form action="makeworkout.php" method="post">';
+echo 'Name: <input type="text" name="WrktName" value="WORKOUT NAME"><br>'; //creates text box to input workout name
+echo("<input type='submit' value='FINISH'><br></form>");
 print_r($_SESSION);
 include_once('connection.php');
 if (isset($_SESSION['exercise'])){
@@ -79,8 +79,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
         echo("<input type='submit' value='Remove Exercise'><input type='hidden' name='ExerciseID' value=".$row['ExerciseID']."<br></form>");
     }
 }
-echo'<form action="makeworkout.php" method="post">';
-echo("<input type='submit' value='FINISH'><input type='hidden' name='workoutID' value=".$row['ExerciseID']."<br></form>");
+
+
 ?>
 </form>
 </body>
