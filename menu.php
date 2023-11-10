@@ -32,7 +32,7 @@
     <p>Some content in menu 1.</p>
     <a href=""><button type="button" class="btn btn-primary btn-lg">start workout</button></a>
     <a href="createworkout.php"><button type="button" class="btn btn-primary btn-lg">create workout</button></a>
-    <a href=""><button type="button" class="btn btn-primary btn-lg">edit workout</button></a>
+    <a href="editworkout.php"><button type="button" class="btn btn-primary btn-lg">edit workout</button></a>
   </div>
   <div id="history" class="tab-pane fade">
     <h3>history</h3>
