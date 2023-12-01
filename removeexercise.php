@@ -13,5 +13,10 @@ print_r($_POST);
 $index = array_search((int)$_POST["ExerciseID"],$_SESSION["exercise"]); // indexof element to remove
 unset($_SESSION["exercise"][$index]); //remove the exercise id to the session exercise array
 print_r($_SESSION);
-header('Location: createworkout.php') //redirect the user back to the create workout page
+if ($_SESSION["edit"]==0){
+    header('Location: createworkout.php');
+}else{
+    header('Location: loadworkout.php'); //redirect the user back to the create workout page
+}
+
 ?>

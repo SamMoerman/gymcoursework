@@ -37,7 +37,8 @@
     $stmt1 = $conn->prepare("DROP TABLE IF EXISTS WrktTbl;
     CREATE TABLE WrktTbl
     (WrktID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    WrktName VARCHAR(30) NOT NULL)");
+    WrktName VARCHAR(30) NOT NULL,
+    UserID INT(6) NOT NULL)");
     $stmt1->execute();
     $stmt1->closeCursor(); 
 
@@ -96,10 +97,10 @@
     $stmt1->closeCursor();
 
     //sets up workout table test data
-    $stmt1 = $conn->prepare("INSERT INTO WrktTbl(WrktID,WrktName)VALUES
-    (1,'legs'),
-    (2,'chest'),
-    (3,'back')");
+    $stmt1 = $conn->prepare("INSERT INTO WrktTbl(WrktID,WrktName,UserID)VALUES
+    (1,'legs',1),
+    (2,'chest',1),
+    (3,'back',2)");
     $stmt1->execute();
     $stmt1->closeCursor();
 

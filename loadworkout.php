@@ -1,6 +1,7 @@
 <?php
 session_start(); 
-$_SESSION["edit"]=0;
+$_SESSION["edit"]=1;
+$_SESSION["currentwrkt"]=$_POST['wrktID'];
 /*
 if (!isset($_SESSION['loggedinuser']))
 {   
@@ -8,6 +9,7 @@ if (!isset($_SESSION['loggedinuser']))
     header("Location:login.php");
 } */
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,35 +24,32 @@ if (!isset($_SESSION['loggedinuser']))
 </head>
 <body>
 
+
 <?php
+include_once('connection.php');
+$stmt = $conn->prepare("SELECT * FROM wrktexercisetbl WHERE WrktID =:wid " );
+$stmt->bindParam(':wid', $_POST['wrktID']);
+$stmt->execute();
+$exerciseNames = array();
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC))  // Fetch and iterate through the results
+{ 
+    // Push each exercise name into the array
+    $exerciseNames[] = $row;
+}
 
-
-
-/////FOR TESTING ONLY///////
-
-
-
-$_SESSION['loggedinuser']=1;
-
-
-
-///////////////////////////
-
-
-
-echo'<form action="makeworkout.php" method="post">';
-echo 'Name: <input type="text" name="WrktName" value="WORKOUT NAME"><br>'; //creates text box to input workout name
-echo("<a href='menu.php'><button type='button'>Back</button></a><br>"); //creates a back button that goes back to the menu page
+print_r($exerciseNames);
+echo("<br>");
+$_SESSION["exercise"] = $exerciseNames;
 echo("<input type='submit' value='FINISH'><br></form>");
-print_r($_SESSION["exercise"]);
-$_SESSION["edit"]=0;
+echo("<a href='menu.php'><button type='button'>Back</button></a><br>"); //creates a back button that goes back to the menu page
+print_r($_SESSION);
 include_once('connection.php');
 if (isset($_SESSION['exercise'])){
     echo "there is ".count($_SESSION["exercise"])." exercises in your workout";
     //run query to pick up name of exercise from id
-    foreach ($_SESSION["exercise"] as &$entry){
+    foreach ($_SESSION["exercise"] as $entry){
         $stmt = $conn->prepare("SELECT * FROM exercisetbl WHERE ExerciseID =:exercise ;" );  // selects the exercise names that correspond with the exerciseID s in the workout
-        $stmt->bindParam(':exercise', $entry);
+        $stmt->bindParam(':exercise', $entry["ExerciseID"]);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC))  //prints out each of the exercise names that are currently in the workout
         { 

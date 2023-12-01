@@ -11,17 +11,27 @@ if (!isset($_SESSION["exercise"])){
 }
 //checks if exercise is already added to the workout
 $found=FALSE;
+print_r($_POST);
 foreach ($_SESSION["exercise"] as &$entry){
+    echo("<br>");
+    print_r($entry);
     
-    if ($entry["exercise"]===$_POST["ExerciseID"]){
+    if ($entry===$_POST["ExerciseID"]){
         $found=TRUE;
     }
 
 }
+echo($found);
+
 if ($found===FALSE){
-    array_push($_SESSION["exercise"],$_POST["ExerciseID"]); //add the exercise id to the session exercise array
+    #$newex=array("WrktID"=>(int)$_SESSION["currentwrkt"], "ExerciseID"=>$_POST["ExerciseID"]);
+    array_push($_SESSION["exercise"], $_POST["ExerciseID"]);//add the exercise id to the session exercise array
 }
 
 print_r($_SESSION);
-header('Location: createworkout.php') //redirect the user back to the create workout page
+if ($_SESSION["edit"]==0){
+    header('Location: createworkout.php');//redirect the user back to the create workout page
+}else{
+    header('Location: loadworkout.php');//redirects the user back to the edit workout page
+}
 ?>
