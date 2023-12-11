@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -30,17 +31,17 @@ if (isset($_GET['exerciseID'])) {
         if (isset($_POST['weight']) && isset($_POST['reps'])) {
             $weight = $_POST['weight'];
             $reps = $_POST['reps'];
-            $date = now();
-
+            $date = date("Y-m-d H:i:s");  // Get the current date and time
+    
             try {
                 // Insert data into the database
-                $stmt = $conn->prepare("INSERT INTO pupilexercisetbl (UserID, ExerciseID,Datev, Weightv, Reps) VALUES (:userid, :exerciseID, :datev, :weightv, :reps)");
+                $stmt = $conn->prepare("INSERT INTO pupilexercisetbl (UserID, ExerciseID, Datev, Weightv, Reps) VALUES (:userid, :exerciseID, NOW(), :weightv, :reps)");
                 $stmt->bindParam(':userid', $_SESSION['loggedinuser'], PDO::PARAM_INT);
                 $stmt->bindParam(':exerciseID', $exerciseID, PDO::PARAM_INT);
-                $stmt->bindParam('datev', $date, PDO::PARAM_INT);
                 $stmt->bindParam(':weightv', $weight, PDO::PARAM_INT);
                 $stmt->bindParam(':reps', $reps, PDO::PARAM_INT);
                 $stmt->execute();
+  
 
                 echo "Data saved successfully!";
             } catch (PDOException $e) {
@@ -62,15 +63,16 @@ if (isset($_GET['exerciseID'])) {
 
     <form method="post" action="">
         <label for="weight">Weight (kgs):</label>
-        <input type="number" id="weight" name="weight" required>
+        <input type="number" id="weight" name="weight" required min="0">
 
         <label for="reps">Reps:</label>
-        <input type="number" id="reps" name="reps" required>
+        <input type="number" id="reps" name="reps" required min="0">
 
         <button type="submit">Save</button>
     </form>
 
-    <form method="get" action="doingworkout.php">
+    <form method="post" action="doingworkout.php">
+        
         <button type="submit">Back to Exercise List</button>
     </form>
 
@@ -78,6 +80,7 @@ if (isset($_GET['exerciseID'])) {
 </html>
 
 <?php
+
 } else {
     // Redirect if exerciseID is not set
     header("Location: doingworkout.php");

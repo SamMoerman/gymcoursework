@@ -23,20 +23,20 @@
 <div class="tab-content">
   <div id="profile" class="tab-pane fade in active">
     <h3>profile</h3>
-    <p>Some content.</p>
     <a href="login.php"><button type="button" class="btn btn-primary btn-lg">login</button></a>
     <a href="logout.php"><button type="button" class="btn btn-primary btn-lg">logout</button></a>
   </div>
   <div id="workout" class="tab-pane fade">
     <h3>workout</h3>
-    <p>Some content in menu 1.</p>
     <a href="startworkout.php"><button type="button" class="btn btn-primary btn-lg">start workout</button></a>
     <a href="createworkout.php"><button type="button" class="btn btn-primary btn-lg">create workout</button></a>
     <a href="editworkout.php"><button type="button" class="btn btn-primary btn-lg">edit workout</button></a>
   </div>
   <div id="history" class="tab-pane fade">
     <h3>history</h3>
-    <p>Some content in menu 2.</p>
+    <a href="records.php"><button type="button" class="btn btn-primary btn-lg">records</button></a>
+    <a href="graphs.php"><button type="button" class="btn btn-primary btn-lg">graphs</button></a>
+    <a href="lastworkout.php"><button type="button" class="btn btn-primary btn-lg">last workout</button></a>
   </div>
 </div>
 </div>

@@ -65,6 +65,7 @@
     CREATE TABLE PupilExerciseTbl
     (PDEID INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     UserID INT(6) NOT NULL,
+    WrktID INT(6) NOT NULL,
     ExerciseID INT(6) NOT NULL,
     Datev DATE NOT NULL,
     Weightv DECIMAL(4,1) NOT NULL,
@@ -132,12 +133,12 @@
     $stmt1->closeCursor();
 
     //sets up the pupil does exercise table test data
-    $stmt1 = $conn->prepare("INSERT INTO PupilExerciseTbl(PDEID,UserID,ExerciseID,Datev,Weightv,Reps)VALUES
-    (NULL,1,1,now(),30,12),
-    (NULL,1,1,'2001-01-01',35,12),
-    (NULL,1,2,now(),25,8),
-    (NULL,2,1,now(),5,3),
-    (NULL,2,2,now(),15,30)");
+    $stmt1 = $conn->prepare("INSERT INTO PupilExerciseTbl(PDEID,UserID,WrktID,ExerciseID,Datev,Weightv,Reps)VALUES
+    (NULL,1,1,1,now(),30,12),
+    (NULL,1,1,1,'2001-01-01',35,12),
+    (NULL,1,3,2,now(),25,8),
+    (NULL,2,1,1,now(),5,3),
+    (NULL,2,3,2,now(),15,30)");
     $stmt1->execute();
     $stmt1->closeCursor();
 

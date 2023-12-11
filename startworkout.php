@@ -17,7 +17,7 @@ $stmt->execute();
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) //prints out each of the users workouts and an edit button next to each one
 {
     echo'<form action="doingworkout.php" method="post">';
-    echo($row["WrktName"]); //display the exercisename on the screen
+    echo($row["WrktName"]); //display the workout name on the screen
     echo("<input type='submit' value='start workout'><input type='hidden' name='wrktID' value=".$row['WrktID']."<br></form>");
 }
 
