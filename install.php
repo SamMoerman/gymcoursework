@@ -136,6 +136,15 @@
     $stmt1 = $conn->prepare("INSERT INTO PupilExerciseTbl(PDEID,UserID,WrktID,ExerciseID,Datev,Weightv,Reps)VALUES
     (NULL,1,1,1,now(),30,12),
     (NULL,1,1,1,'2001-01-01',35,12),
+    (NULL,1,1,1,'2001-01-01',35,5),
+    (NULL,1,1,1,'2001-01-01',40,5),
+    (NULL,1,1,1,'2001-01-01',100,1),
+    (NULL,1,1,1,'2001-01-01',90,1),
+
+    (NULL,1,1,6,now(),90,1),
+    (NULL,1,1,6,now(),80,3),
+    (NULL,1,1,6,now(),60,10),
+
     (NULL,1,3,2,now(),25,8),
     (NULL,2,1,1,now(),5,3),
     (NULL,2,3,2,now(),15,30)");

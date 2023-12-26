@@ -9,6 +9,17 @@ if (!isset($_SESSION['loggedinuser']))
     header("Location:login.php");
 } */
 
+/////FOR TESTING ONLY///////
+
+
+
+$_SESSION['loggedinuser']=1;
+
+
+
+///////////////////////////
+
+
 $stmt = $conn->prepare("SELECT * FROM wrkttbl WHERE UserID = :user ;");
 $stmt->bindParam(':user', $_SESSION['loggedinuser']); 
 
@@ -17,7 +28,7 @@ $stmt->execute();
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 {
     echo'<form action="lastworkoutspecific.php" method="post">';
-    echo($row["WrktName"]); //display the exercisename on the screen
+    echo($row["WrktName"]); //display the workout name on the screen
     echo("<input type='submit' value='view data'><input type='hidden' name='wrktID' value=".$row['WrktID']."<br></form>");
 }
 

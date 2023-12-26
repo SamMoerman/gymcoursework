@@ -2,38 +2,46 @@
 include_once('connection.php');
 session_start();
 
-/*
-if (!isset($_SESSION['loggedinuser']))
-{   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
-
-if (isset($_POST['wrktid'])) {
-    $wrktID = $_POST['wrktid'];
+// Check if 'wrktid' is set in the POST data
+if (isset($_POST['wrktID'])) {
+    $wrktID = $_POST['wrktID'];
 
     try {
+        // Prepare SQL query to retrieve ExerciseName, Datev, Weightv, and Reps for the most recent Datev for each ExerciseID
         $stmt = $conn->prepare("
-            SELECT *
-            FROM pupilexercisetbl
-            WHERE ExerciseID = :exerciseid
-            ORDER BY Datev DESC
-            LIMIT 1
+            SELECT e.ExerciseName, pe.Datev, pe.Weightv, pe.Reps
+            FROM pupilexercisetbl pe
+            JOIN exercisetbl e ON pe.ExerciseID = e.ExerciseID
+            WHERE pe.WrktID = :wrktid
+            AND (pe.ExerciseID, pe.Datev) IN (
+                SELECT ExerciseID, MAX(Datev) as MaxDate
+                FROM pupilexercisetbl
+                WHERE WrktID = :wrktid
+                GROUP BY ExerciseID
+            )
         ");
-        $stmt->bindParam(':exerciseid', $wrktID);
+
+        // Bind parameters
+        $stmt->bindParam(':wrktid', $wrktID);
+
+        // Execute the query
         $stmt->execute();
 
+        // Fetch and print the results
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            // Print out each column's value
-            foreach ($row as $columnName => $value) {
-                echo "$columnName: $value<br>";
-            }
+            // Print Exercise Name, Datev, Weight, and Reps for each entry
+            echo "Exercise Name: {$row['ExerciseName']}<br>";
+            echo "Date: {$row['Datev']}<br>";
+            echo "Weight: {$row['Weightv']}<br>";
+            echo "Reps: {$row['Reps']}<br>";
             echo "<br>";
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 }
+
+echo("<br><a href='lastworkout.php'><button type='button'>Back</button></a>"); //creates a back button that goes back to the last workout page
 
 // Close the database connection
 $conn = null;
