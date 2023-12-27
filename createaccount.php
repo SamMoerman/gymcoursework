@@ -11,6 +11,7 @@ try{
             $role=1;
             break;
     }
+    
     if(isset($_POST["forename"]) and isset($_POST["surname"]) and isset($_POST["emailaddress"]) and isset($_POST["passwd"]))
     {
         $hashed_password = password_hash($_POST["passwd"], PASSWORD_DEFAULT);

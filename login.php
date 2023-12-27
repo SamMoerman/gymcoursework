@@ -6,7 +6,7 @@
 <body>
 <!-- creates login form -->
 <form action="loginprocess.php" method= "POST">
- User name (email address):<input type="text" name="Username"><br>
+ User name (last name):<input type="text" name="Username"><br>
  Password:<input type="password" name="Pword"><br>
 <input type="submit" value="Login">
 </form>

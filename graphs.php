@@ -3,7 +3,6 @@
 <head>
     
     <title>create a workout</title>
-    <!--temp styling for testing-->
     <style>
         .iconsm{
             height:50px;
@@ -16,12 +15,12 @@
 include_once('connection.php');
 session_start();
 
-/*
-if (!isset($_SESSION['loggedinuser']))
+
+if (!isset($_SESSION['loggedinuser'])) //if the user is not logged in
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//store the page that the user is being sent from
+    header("Location:login.php");//and send them to the login page
+} 
 
 $stmt = $conn->prepare("SELECT * FROM exercisetbl ");
 $stmt->execute();

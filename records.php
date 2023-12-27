@@ -3,7 +3,7 @@
 <head>
     
     <title>create a workout</title>
-    <!--temp styling for testing-->
+    <!--makes icons small-->
     <style>
         .iconsm{
             height:50px;
@@ -16,12 +16,11 @@
 include_once('connection.php');
 session_start();
 
-/*
-if (!isset($_SESSION['loggedinuser']))
+if (!isset($_SESSION['loggedinuser']))//if there is no logged in user
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//save this page
+    header("Location:login.php");//and send user to log in page
+} 
 
 $stmt = $conn->prepare("SELECT * FROM exercisetbl ");
 $stmt->execute();
@@ -35,5 +34,4 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
     }
 
     echo("<br><a href='menu.php'><button type='button'>Back</button></a>"); //creates a back button that goes back to the menu page
-
 ?>

@@ -1,10 +1,10 @@
 <?php
 session_start(); 
-/*if (!isset($_SESSION['loggedinuser']))
+if (!isset($_SESSION['loggedinuser']))//if no user is logged in
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//then save this page
+    header("Location:login.php");//and redirect the user to the log in page
+} 
 
 if (!isset($_SESSION["exercise"])){
     $_SESSION["exercise"]=array();
@@ -24,7 +24,6 @@ foreach ($_SESSION["exercise"] as &$entry){
 echo($found);
 
 if ($found===FALSE){
-    #$newex=array("WrktID"=>(int)$_SESSION["currentwrkt"], "ExerciseID"=>$_POST["ExerciseID"]);
     array_push($_SESSION["exercise"], $_POST["ExerciseID"]);//add the exercise id to the session exercise array
 }
 

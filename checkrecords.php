@@ -2,13 +2,13 @@
 include_once('connection.php');
 session_start();
 
-/*
-if (!isset($_SESSION['loggedinuser']))
+if (!isset($_SESSION['loggedinuser']))//if no user is logged in
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
-
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//then save this page
+    header("Location:login.php");//and send user to the log in page
+} 
+//selects the date, weight, reps and exercise name from pupil exercisetbl for the selected exerciseID 
+//and the logged in user from the entry that has the largest weight value for each unique rep value
 $stmt = $conn->prepare("
     SELECT pe.Datev, pe.Weightv, pe.Reps, e.ExerciseName
     FROM pupilexercisetbl pe

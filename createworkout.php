@@ -1,20 +1,20 @@
 <?php
 session_start(); 
 $_SESSION["edit"]=0;
-/*
-if (!isset($_SESSION['loggedinuser']))
+
+if (!isset($_SESSION['loggedinuser']))//if the user is not logged in
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//store the page that the user is being sent from
+    header("Location:login.php");//and send them to the login page
+} 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     
     <title>create a workout</title>
-    <!--temp styling for testing-->
     <style>
+      /* reduce size of images */ 
         .iconsm{
             height:50px;
         }
@@ -24,24 +24,11 @@ if (!isset($_SESSION['loggedinuser']))
 
 <?php
 
-
-
-/////FOR TESTING ONLY///////
-
-
-
-$_SESSION['loggedinuser']=1;
-
-
-
-///////////////////////////
-
-
-
 echo'<form action="makeworkout.php" method="post">';
 echo 'Name: <input type="text" name="WrktName" value="WORKOUT NAME"><br>'; //creates text box to input workout name
 echo("<a href='menu.php'><button type='button'>Back</button></a><br>"); //creates a back button that goes back to the menu page
 echo("<input type='submit' value='FINISH'><br></form>");
+
 $_SESSION["edit"]=0;
 include_once('connection.php');
 if (isset($_SESSION['exercise'])){

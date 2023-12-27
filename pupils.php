@@ -9,7 +9,7 @@ session_start();
 
 </head>
 <body>
-       
+  
 <form action="createaccount.php" method = "post">
   First name:<input type="text" name="forename"><br>
   Last name:<input type="text" name="surname"><br>

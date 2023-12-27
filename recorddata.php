@@ -1,28 +1,15 @@
-
 <?php
 session_start();
 
-/*
-if (!isset($_SESSION['loggedinuser']))
+if (!isset($_SESSION['loggedinuser']))//if no user is logged in
 {   
-    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
-    header("Location:login.php");
-} */
-
-/////FOR TESTING ONLY///////
-
-
-
-/* $_SESSION['loggedinuser']=1; */
-
-
-
-///////////////////////////
-
+    $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];//save this page
+    header("Location:login.php");//send user to login page
+} 
 
 include_once('connection.php');
 
-// Check if exerciseID is set in the query string
+// Check if exerciseID is set
 if (isset($_GET['exerciseID'])) {
     $exerciseID = $_GET['exerciseID'];
 
@@ -51,7 +38,7 @@ if (isset($_GET['exerciseID'])) {
         }
     }
 ?>
-
+<!-- creates the user interface for the user to input their data -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

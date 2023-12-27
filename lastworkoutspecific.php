@@ -2,7 +2,7 @@
 include_once('connection.php');
 session_start();
 
-// Check if 'wrktid' is set in the POST data
+// Check if wrktid is set
 if (isset($_POST['wrktID'])) {
     $wrktID = $_POST['wrktID'];
 
@@ -21,10 +21,7 @@ if (isset($_POST['wrktID'])) {
             )
         ");
 
-        // Bind parameters
         $stmt->bindParam(':wrktid', $wrktID);
-
-        // Execute the query
         $stmt->execute();
 
         // Fetch and print the results

@@ -101,8 +101,6 @@
     $stmt1 = $conn->prepare("INSERT INTO WrktTbl(WrktID,WrktName,UserID)VALUES
     (1,'legs',1),
     (2,'chest',1),
-    (4,'chest',1),
-    (5,'back',1),
     (3,'back',2)");
     $stmt1->execute();
     $stmt1->closeCursor();
@@ -146,6 +144,18 @@
     (NULL,1,1,6,now(),90,1),
     (NULL,1,1,6,now(),80,3),
     (NULL,1,1,6,now(),60,10),
+
+
+
+    (NULL,1,1,6,now(),300,1),
+    (NULL,1,1,6,now(),1,1),
+
+    (NULL,1,1,6,now(),200,2),
+    (NULL,1,1,6,now(),1,2),
+
+    (NULL,1,1,6,now(),450,3),
+    (NULL,1,1,6,now(),1,3),
+
 
     (NULL,1,3,2,now(),25,8),
     (NULL,2,1,1,now(),5,3),

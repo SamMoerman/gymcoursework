@@ -1,12 +1,11 @@
 <?php
 session_start(); 
-/*
+
 if (!isset($_SESSION['loggedinuser']))
 {   
     $_SESSION['backURL'] = $_SERVER['REQUEST_URI'];
     header("Location:login.php");
-} */
-
+} 
 
 //user selects the workout that they want to complete
 
@@ -18,7 +17,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) //prints out each of the users wor
 {
     echo'<form action="doingworkout.php" method="post">';
     echo($row["WrktName"]); //display the workout name on the screen
-    echo("<input type='submit' value='start workout'><input type='hidden' name='wrktID' value=".$row['WrktID']."<br></form>");
+    echo("<input type='submit' value='start workout'><input type='hidden' name='wrktID' value=".$row['WrktID']."<br></form>");//prints a start workout button next to each workout
 }
 
 echo("<br><a href='menu.php'><button type='button'>Back</button></a>"); //creates a back button that goes back to the menu page
