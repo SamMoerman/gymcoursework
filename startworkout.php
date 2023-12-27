@@ -23,3 +23,5 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) //prints out each of the users wor
 
 echo("<br><a href='menu.php'><button type='button'>Back</button></a>"); //creates a back button that goes back to the menu page
 
+?>
+

@@ -42,7 +42,6 @@ echo'<form action="makeworkout.php" method="post">';
 echo 'Name: <input type="text" name="WrktName" value="WORKOUT NAME"><br>'; //creates text box to input workout name
 echo("<a href='menu.php'><button type='button'>Back</button></a><br>"); //creates a back button that goes back to the menu page
 echo("<input type='submit' value='FINISH'><br></form>");
-print_r($_SESSION["exercise"]);
 $_SESSION["edit"]=0;
 include_once('connection.php');
 if (isset($_SESSION['exercise'])){

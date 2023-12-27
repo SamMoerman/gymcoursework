@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedinuser']))
 
 
 
-$_SESSION['loggedinuser']=1;
+/* $_SESSION['loggedinuser']=1; */
 
 
 
@@ -35,8 +35,9 @@ if (isset($_GET['exerciseID'])) {
     
             try {
                 // Insert data into the database
-                $stmt = $conn->prepare("INSERT INTO pupilexercisetbl (UserID, ExerciseID, Datev, Weightv, Reps) VALUES (:userid, :exerciseID, NOW(), :weightv, :reps)");
+                $stmt = $conn->prepare("INSERT INTO pupilexercisetbl (UserID, WrktID, ExerciseID, Datev, Weightv, Reps) VALUES (:userid, :wrktid, :exerciseID, NOW(), :weightv, :reps)");
                 $stmt->bindParam(':userid', $_SESSION['loggedinuser'], PDO::PARAM_INT);
+                $stmt->bindParam(':wrktid', $_SESSION["currentwrkt"], PDO::PARAM_INT);
                 $stmt->bindParam(':exerciseID', $exerciseID, PDO::PARAM_INT);
                 $stmt->bindParam(':weightv', $weight, PDO::PARAM_INT);
                 $stmt->bindParam(':reps', $reps, PDO::PARAM_INT);
@@ -66,7 +67,7 @@ if (isset($_GET['exerciseID'])) {
         <input type="number" id="weight" name="weight" required min="0">
 
         <label for="reps">Reps:</label>
-        <input type="number" id="reps" name="reps" required min="0">
+        <input type="number" id="reps" name="reps" required min="1">
 
         <button type="submit">Save</button>
     </form>

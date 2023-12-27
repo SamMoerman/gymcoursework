@@ -1,5 +1,5 @@
 <?php
-/* try{
+try{
     array_map("htmlspecialchars", $_POST);
 
     include_once("connection.php");
@@ -10,28 +10,30 @@
         case "Teacher":
             $role=1;
             break;
-        case "Admin":
-            $role=2;
-            break;
     }
-    $hashed_password = password_hash($_POST["passwd"], PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO pupilstbl (UserID,Surname,Forename,Password,Year, Balance ,Role)VALUES (null,:surname,:forename,:password,:year, :balance, :role)");
+    if(isset($_POST["forename"]) and isset($_POST["surname"]) and isset($_POST["emailaddress"]) and isset($_POST["passwd"]))
+    {
+        $hashed_password = password_hash($_POST["passwd"], PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO usertbl (UserID,Surname,Forename,EmailAddress,Password ,Role)VALUES (null,:surname,:forename,:emailaddress,:password, :role)");
 
-    $stmt->bindParam(':forename', $_POST["forename"]);
-    $stmt->bindParam(':surname', $_POST["surname"]);
-    $stmt->bindParam(':year', $_POST["year"]);
-    $stmt->bindParam(':password', $hashed_password);
-    $stmt->bindParam(':balance', $_POST["Balance"]);
-    $stmt->bindParam(':role', $role);
-    $stmt->execute();
+        $stmt->bindParam(':forename', $_POST["forename"]);
+        $stmt->bindParam(':surname', $_POST["surname"]);
+        $stmt->bindParam(':emailaddress', $_POST["emailaddress"]);
+        $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':role', $role);
+        $stmt->execute();
     }
-catch(PDOException $e)
-{
-    echo "error".$e->getMessage();
+
+    else{
+        echo("please enter information for all fields");
+    }
 }
-$conn=null;
+    catch(PDOException $e)
+    {
+        echo "error".$e->getMessage();
+    }
+    $conn=null;
 
-header('Location: pupils.php')
- */
-
+    header('Location: pupils.php')
+    
 ?>

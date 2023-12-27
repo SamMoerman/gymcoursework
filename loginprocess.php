@@ -12,8 +12,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
     $hashed= $row['Password'];
     $attempt= $_POST['Pword'];
     if(password_verify($attempt,$hashed)){
+        echo("eefdbhjbch");
         $_SESSION['loggedinuser']=$row["UserID"];
-        $_SESSION['userrole']=$row["Role"]; 
+        $_SESSION['userrole']=$row["Role"];
+  
         if (!isset($_SESSION['backURL'])){
             $backURL= "menu.php";  //Sets a default destination if no BackURL set (parent dir)
         }else{
@@ -22,8 +24,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
         unset($_SESSION['backURL']);  //if the password is correct send them back to the menu
         header('Location: ' . $backURL);
     }else{
-        header('Location: login.php');  //if the password is not correct send them back to the login page to try again
+        //header('Location: login.php');  //if the password is not correct send them back to the login page to try again
+
     }
+
 }
 $conn=null;
 ?>

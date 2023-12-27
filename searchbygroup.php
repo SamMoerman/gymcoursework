@@ -23,9 +23,7 @@ foreach($_SESSION["exercise"] as $entry){
     array_push($exerciselist,$entry["ExerciseID"]);
 }
 }
-print_r($exerciselist);
-echo("<br>s");
-print_r($_SESSION);
+
 if ($_SESSION["edit"]==1){
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
     {

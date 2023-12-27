@@ -25,6 +25,18 @@
     <h3>profile</h3>
     <a href="login.php"><button type="button" class="btn btn-primary btn-lg">login</button></a>
     <a href="logout.php"><button type="button" class="btn btn-primary btn-lg">logout</button></a>
+    <a href="pupils.php"><button type="button" class="btn btn-primary btn-lg">create account</button></a>
+    <br>
+    <?php
+    session_start(); 
+    include_once ("connection.php");
+    if (isset($_SESSION['loggedinuser'])){
+    echo($_SESSION['loggedinuser']);
+    }
+    else{
+    echo("no logged in user");
+    }
+    ?>
   </div>
   <div id="workout" class="tab-pane fade">
     <h3>workout</h3>

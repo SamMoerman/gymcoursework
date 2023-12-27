@@ -74,14 +74,14 @@
     $stmt1->closeCursor();
     
     //sets up default users test data
-    $hashed_password = password_hash("password", PASSWORD_DEFAULT);
+    $hashed_password = password_hash("Password", PASSWORD_DEFAULT);
     $stmt1 = $conn->prepare("INSERT INTO UserTbl(UserID,Forename,Surname,emailaddress,Password,Role)VALUES 
     (NULL,'Sam','Moerman','sm@google.com',:hp,1),
     (NULL,'Joe','Ren','jr@google.com',:hp,1),
     (NULL,'William','Ma','wm@google.com',:hp,0),
     (NULL,'Egor','Drygin','ed@google.com',:hp,0),
     (NULL,'George','Gurney','gg@google.com',:hp,0)
-    ");
+    "); 
     $stmt1->bindParam(':hp', $hashed_password);
     $stmt1->execute();
     $stmt1->closeCursor(); 
@@ -101,6 +101,8 @@
     $stmt1 = $conn->prepare("INSERT INTO WrktTbl(WrktID,WrktName,UserID)VALUES
     (1,'legs',1),
     (2,'chest',1),
+    (4,'chest',1),
+    (5,'back',1),
     (3,'back',2)");
     $stmt1->execute();
     $stmt1->closeCursor();
